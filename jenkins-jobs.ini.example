@@ -1,0 +1,12 @@
+[job_builder]
+ignore_cache=True
+keep_descriptions=False
+include_path=.:
+recursive=False
+exclude=.*:manual:./development
+allow_duplicates=False
+update=all
+
+[jenkins]
+url=https://my.jenkins.url
+query_plugins_info=False

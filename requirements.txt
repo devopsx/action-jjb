@@ -1,1 +1,1 @@
-jenkins-job-builder>=3.9.0,<4
+jenkins-job-builder>=6,<7

@@ -1,19 +1,22 @@
 name: Jenkins Job Builder
-description: Updates Jenkins Jobs
+description: Update Jenkins Jobs
 branding:
   icon: message-circle
   color: green
 
 inputs:
-  jenkins_token:
+  jjb_user:
+    description: Jenkins user account name
+    required: true
+  jjb_password:
     description: Jenkins API token (https://www.jenkins.io/blog/2018/07/02/new-api-token-system/, preferred), or password
     required: true
   jjb_dir:
-    description: Path to directory with JJB YML files, searched recursively
+    description: Path to directory with JJB YAML files, searched recursively
     required: false
     default: jobs
   jjb_ini:
-    description: Path to jenkins_jobs.ini file. Specify URL and username here. https://jenkins-job-builder.readthedocs.io/en/latest/execution.html
+    description: Path to jenkins_jobs.ini file. Specify URL here. https://jenkins-job-builder.readthedocs.io/en/latest/execution.html
     required: false
     default: jenkins_jobs.ini
   jenkins_cert:
@@ -31,10 +34,11 @@ runs:
     - run: |
         set -xeu -o pipefail
         pip3 install -r "$GITHUB_ACTION_PATH/requirements.txt"
-        $GITHUB_ACTION_PATH/gha.sh
+        $GITHUB_ACTION_PATH/action.sh
       shell: bash
       env:
-        INPUT_JENKINS_TOKEN: ${{ inputs.jenkins_token }}
+        INPUT_JJB_USER: ${{ inputs.jjb_user }}
+        INPUT_JJB_PASSWORD: ${{ inputs.jjb_password }}
         INPUT_JOBS_DIR: ${{ inputs.jjb_dir }}
         INPUT_INI_FILE: ${{ inputs.jjb_ini }}
         INPUT_JENKINS_CERT: ${{ inputs.jenkins_cert }}
